@@ -1,0 +1,40 @@
+services:
+  # 1. Le conteneur de la Base de Données
+  postgres:
+    image: postgres:15-alpine
+    container_name: uniregis-db
+    environment:
+      POSTGRES_DB: uniregis_db
+      POSTGRES_USER: uniregis_user
+      POSTGRES_PASSWORD: uniregis_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Le conteneur du Serveur Payara 6 (qui va exécuter notre code Java en JDK 21)
+  payara:
+    image: payara/server-full:6.2024.1-jdk21
+    container_name: uniregis-app
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080" # Port pour notre API REST
+      - "4848:4848" # Port pour la console d'administration Payara
+    volumes:
+      # Dossier d'auto-déploiement à chaud (Hot Deploy) pour Payara
+      - ./target/projet-j2E-1.0-SNAPSHOT.war:/opt/payara/appserver/glassfish/domains/domain1/autodeploy/projet-j2E-1.0-SNAPSHOT.war
+
+  # 3. Le conteneur de Surveillance (Prometheus)
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: uniregis-metrics
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - payara
+
+volumes:
+  postgres_data:

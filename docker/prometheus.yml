@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # Prometheus va lire les performances toutes les 5 secondes
+
+scrape_configs:
+  - job_name: 'payara-metrics'
+    metrics_path: '/metrics' # Point d'accès natif de MicroProfile Metrics
+    static_configs:
+      - targets: ['payara:8080']
