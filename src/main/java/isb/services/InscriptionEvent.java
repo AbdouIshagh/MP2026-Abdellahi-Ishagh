@@ -1,4 +1,4 @@
-package isb.business;
+package isb.services;
 
 public record InscriptionEvent(String matricule) {
 

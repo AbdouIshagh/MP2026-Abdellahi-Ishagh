@@ -1,4 +1,4 @@
-package isb.domain;
+package isb.entite;
 
 
 

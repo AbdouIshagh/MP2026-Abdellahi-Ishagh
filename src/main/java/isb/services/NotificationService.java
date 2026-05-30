@@ -1,4 +1,4 @@
-package isb.business;
+package isb.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
