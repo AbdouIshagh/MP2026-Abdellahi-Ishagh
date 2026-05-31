@@ -23,8 +23,7 @@ import org.eclipse.microprofile.openapi.annotations.info.Contact;
                 contact = @Contact(name = "Dr. EL BENANY Mohamed Mahmoud - CS201")
         )
 )
-@LoginConfig(authMethod = "MP-JWT", realmName = "mp-jwt-realm") // Active la sécurité MicroProfile JWT sur Payara
+@LoginConfig(authMethod = "MP-JWT", realmName = "mp-jwt-realm")
 @ApplicationPath("/api")
 public class RestApplication extends Application {
-        // Cette classe reste vide, les annotations suffisent à tout activer !
 }

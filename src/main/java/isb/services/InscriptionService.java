@@ -33,7 +33,7 @@ public class InscriptionService {
         long prochainNumero = totalInscriptions + 1;
         String matriculeAutomatique = String.format("ISB-%03d", prochainNumero);
 
-        // 2. Instancier l'entité Étudiant liée (Correction des accesseurs du Record)
+        // 2. Instancier l'entité Étudiant liée
         if (inscription.getEtudiant() == null) {
             isb.entite.Etudiant etudiant = new isb.entite.Etudiant();
 
@@ -46,10 +46,17 @@ public class InscriptionService {
             inscription.setEtudiant(etudiant);
         }
 
-        // Correction de la gestion de l'énumération Statut
+        // 3. Gestion de l'énumération Statut initial
         inscription.setStatut(Statut.EN_ATTENTE);
 
+        // 4. Persistance en base de données
         em.persist(inscription);
+
+        // =========================================================================
+        // MIS À JOUR : Déclenchement de l'événement CDI pour le NotificationService
+        // =========================================================================
+        evt.fire(new InscriptionEvent(matriculeAutomatique));
+
         return inscription;
     }
 

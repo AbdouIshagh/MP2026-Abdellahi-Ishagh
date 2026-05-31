@@ -1,8 +1,15 @@
 global:
   scrape_interval: 5s # Prometheus va lire les performances toutes les 5 secondes
+  evaluation_interval: 5s
 
 scrape_configs:
+  # 1. Surveillance de Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # 2. Surveillance de ton serveur Payara et de la base de données
   - job_name: 'payara-metrics'
     metrics_path: '/metrics' # Point d'accès natif de MicroProfile Metrics
     static_configs:
-      - targets: ['payara:8080']
+      - targets: ['payara:8080'] # Cible le conteneur Payara sur le réseau Docker

@@ -75,7 +75,6 @@ public class InscriptionController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Changer le statut directement (Contournement Sécurité pour Démo)")
     public Response changerStatutDirect(@PathParam("id") Long id, Map<String, String> body) {
-        // 1. Récupération du statut depuis le JSON
         String nouveauStatut = body.get("statut");
         if (nouveauStatut == null || nouveauStatut.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -83,7 +82,6 @@ public class InscriptionController {
         }
 
         try {
-            // 2. On délègue la modification au service qui gère déjà l'EntityManager
             Inscription inscription = service.changerStatutDirect(id, nouveauStatut);
             if (inscription == null) {
                 return Response.status(Response.Status.NOT_FOUND)

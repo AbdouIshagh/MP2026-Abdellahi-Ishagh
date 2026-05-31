@@ -18,8 +18,6 @@ public class Inscription {
     @Column(nullable = false)
     private Statut statut;
 
-    @Version
-    private Long version; // Optimistic Lock conforme Listing 1
 
     public Inscription() {
     }
@@ -29,7 +27,6 @@ public class Inscription {
         this.statut = statut;
     }
 
-    // --- Getters et Setters ---
     public Long getId() {
         return id;
     }
@@ -50,7 +47,5 @@ public class Inscription {
         this.statut = statut;
     }
 
-    public Long getVersion() {
-        return version;
-    }
+
 }

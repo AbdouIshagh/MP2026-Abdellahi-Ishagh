@@ -12,7 +12,7 @@ import isb.services.InscriptionService;
 public class DatabaseReadinessCheck implements HealthCheck {
 
     @Inject
-    private InscriptionService service; // On utilise le service fonctionnel
+    private InscriptionService service;
 
     @Override
     public HealthCheckResponse call() {

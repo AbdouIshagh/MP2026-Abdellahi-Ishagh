@@ -22,7 +22,6 @@ public class Etudiant {
     @Column(nullable = false)
     private String filiere;
 
-    // --- Constructeurs ---
     public Etudiant() {}
 
     public Etudiant(String matricule, String nom, String prenom, String filiere) {
@@ -32,7 +31,6 @@ public class Etudiant {
         this.filiere = filiere;
     }
 
-    // --- Getters et Setters ---
     public Long getId() { return id; }
     public String getMatricule() { return matricule; }
     public void setMatricule(String matricule) { this.matricule = matricule; }
